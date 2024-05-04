@@ -2,6 +2,7 @@ package aorquerab;
 
 import aorquerab.model.Exercise;
 import aorquerab.model.enums.TypeCardio;
+import aorquerab.repository.ExerciseRepositoryOld;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,13 +22,24 @@ public class Application {
 	}
 
 	//This bean runs after the application started && after the application context has been created
-	@Bean
-	CommandLineRunner runner () {
-		return args -> {
-			log.info("Executing commandLineRunner");
-			Exercise ex1 = new Exercise(1,"Bench press",5,5, LocalDateTime.now(), TypeCardio.STEP);
-			log.info("Exercise: " + ex1);
-		};
-	}
+//	@Bean
+//	CommandLineRunner runner () {
+//		return args -> {
+//			log.info("Executing commandLineRunner");
+//			Exercise ex1 = new Exercise(1,"Bench press",5,5, LocalDateTime.now(), TypeCardio.STEP);
+//			log.info("Exercise: " + ex1);
+//		};
+//	}
+
+	//To insert data using CommandLineRunner and the RepositoryOld
+//	@Bean
+//	CommandLineRunner runner (ExerciseRepositoryOld exerciseRepositoryOld) {
+//		return args -> {
+//			log.info("Executing commandLineRunner");
+//			Exercise ex1 = new Exercise(1,"Bench press",5,5, LocalDateTime.now(), TypeCardio.STEP);
+//			log.info("Exercise: " + ex1);
+//			exerciseRepositoryOld.addExercise(ex1);
+//		};
+//	}
 
 }
