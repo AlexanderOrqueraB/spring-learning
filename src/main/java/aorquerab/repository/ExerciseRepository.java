@@ -9,22 +9,33 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ExerciseRepository {
 
     private static final List<Exercise> exercises = new ArrayList<>();
 
-    public static List<Exercise> findAll() {
+    //GET
+    public List<Exercise> getExercises() {
         return exercises;
     }
 
-    public Exercise findById(Integer id) {
+    //GET
+    public Optional<Exercise> getExerciseById(Integer id) {
         return exercises.stream()
                 .filter(exercise -> exercise.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
+
+    //POST
+    public void addExercise(Exercise exercise) {
+        exercises.add(exercise);
+    }
+
+    //UPDATE
+
+    //DELETE
 
     //"Initialization" inside this class
     @PostConstruct

@@ -1,6 +1,7 @@
 package aorquerab.controller;
 
 import aorquerab.model.Exercise;
+import aorquerab.model.exception.ExerciseNotFoundException;
 import aorquerab.repository.ExerciseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping ("/exercises")
@@ -34,14 +36,32 @@ public class ExerciseController {
     }
 
     @GetMapping("")
-    public List<Exercise> findAll (){
-        return ExerciseRepository.findAll();
+    public List<Exercise> getExercises(){
+        return exerciseRepository.getExercises();
     }
 
     @GetMapping("/{id}")
-    public Exercise findById (@PathVariable Integer id){
-        return exerciseRepository.findById(id);
+    public Exercise getExerciseById(@PathVariable Integer id){
+        Optional<Exercise> exercise = exerciseRepository.getExerciseById(id);
+        if(exercise.isEmpty()) {
+            log.info("Exercise {} not found in database",id.toString());
+            throw new ExerciseNotFoundException(HttpStatus.NOT_FOUND,"Exercise not found in DB");
+        }
+        return exercise.get();
     }
+
+    @PostMapping("/addExercise")
+    public ResponseEntity<Exercise> addExercise (@RequestBody Exercise exercise) {
+        log.info("Exercise adding attempt");
+        exerciseRepository.addExercise(exercise);
+        return new ResponseEntity<> (HttpStatus.CREATED);
+        // ResponseEntity.status(HttpStatus.CREATED)
+    }
+
+
+    //PUT
+
+    //DELETE
 
     //TODO: 1H07MIN
 

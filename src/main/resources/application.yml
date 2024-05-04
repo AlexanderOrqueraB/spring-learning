@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: spring-learning
+server:
+  error:
+    include-stacktrace: never
