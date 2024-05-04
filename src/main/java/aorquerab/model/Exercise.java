@@ -1,6 +1,8 @@
 package aorquerab.model;
 
 import aorquerab.model.enums.TypeCardio;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,8 +15,11 @@ import java.time.LocalDateTime;
 public class Exercise {
 
     private Integer id;
+    @NotEmpty (message = "Name must not be null and size must be greater than zero!")
     private String name;
+    @Positive (message = "Number of repetition must not be negative")
     private Integer repetition;
+    @Positive (message = "Number of series must not be negative")
     private Integer serie;
     private LocalDateTime startedOn;
     private TypeCardio typeCardio;

@@ -3,6 +3,7 @@ package aorquerab.controller;
 import aorquerab.model.Exercise;
 import aorquerab.model.exception.ExerciseNotFoundException;
 import aorquerab.repository.ExerciseRepository;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class ExerciseController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<String> postController(@RequestBody String body) {
+    public ResponseEntity<String> postController(@Valid @RequestBody String body) {
         log.info("Get endpoint executed correctly");
         return new ResponseEntity<> (body, HttpStatus.OK);
     }
@@ -51,19 +52,30 @@ public class ExerciseController {
     }
 
     @PostMapping("/addExercise")
-    public ResponseEntity<Exercise> addExercise (@RequestBody Exercise exercise) {
+    public ResponseEntity<Exercise> addExercise (@Valid @RequestBody Exercise exercise) {
         log.info("Exercise adding attempt");
         exerciseRepository.addExercise(exercise);
         return new ResponseEntity<> (HttpStatus.CREATED);
         // ResponseEntity.status(HttpStatus.CREATED)
     }
 
-
     //PUT
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/updateExercise/{id}")
+    public void updateExercise (
+            @PathVariable Integer id,
+            @Valid @RequestBody Exercise exercise) {
+        log.info("Exercise update attempt");
+        exerciseRepository.updateExercise(exercise, id);
+    }
 
     //DELETE
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/deleteExercise/{id}")
+    public void deleteExercise (@PathVariable Integer id) {
+        log.info("Exercise delete attempt");
+        exerciseRepository.deleteExercise(id);
+    }
 
-    //TODO: 1H07MIN
-
-
+    //TODO: 1H17
 }

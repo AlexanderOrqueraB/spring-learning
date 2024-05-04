@@ -34,8 +34,18 @@ public class ExerciseRepository {
     }
 
     //UPDATE
+    public void updateExercise(Exercise exercise, Integer id) {
+        Optional<Exercise> existingExercise = getExerciseById(id);
+        existingExercise.ifPresent(value -> exercises.set(exercises.indexOf(value), exercise));
+        /*Optional<Exercise> existingExercise = getExerciseById(id);
+        if (existingExercise.isPresent()){
+            exercises.set(exercises.indexOf(existingExercise.get()),exercise);}*/
+    }
 
     //DELETE
+    public void deleteExercise(Integer id) {
+        exercises.removeIf(exercise -> exercise.getId().equals(id));
+    }
 
     //"Initialization" inside this class
     @PostConstruct
