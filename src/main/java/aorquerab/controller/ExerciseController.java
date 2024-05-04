@@ -77,5 +77,5 @@ public class ExerciseController {
         exerciseRepository.deleteExercise(id);
     }
 
-    //TODO: 1H17
+    //TODO: 1H35 - TIME FOR DATABASE HEHE
 }

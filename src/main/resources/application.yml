@@ -1,6 +1,14 @@
 spring:
   application:
     name: spring-learning
+  h2:
+    console:
+      enabled: true
+  datasource:
+    generate-unique-name: false
+    name: mydatasource
+
 server:
+  port: 8080
   error:
     include-stacktrace: never
