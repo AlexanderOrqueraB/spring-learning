@@ -1,14 +1,24 @@
 spring:
   application:
     name: spring-learning
-  h2:
-    console:
-      enabled: true
-  datasource:
-    generate-unique-name: false
-    name: mydatasource
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    generate-unique-name: false
+#    name: mydatasource
 
-server:
-  port: 8080
-  error:
-    include-stacktrace: never
+  #To connect directly to postgresql DB up and running in local machine
+#  datasource:
+#    name: postgres
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    username:
+#    password:
+#  sql:
+#    init:
+#      mode: always
+
+#server:
+  #port: 8080
+  #error:
+    #include-stacktrace: never

@@ -85,5 +85,5 @@ public class ExerciseController {
 
 
 
-    //TODO: 1H47 - TIME FOR DATABASE HEHE
+    //TODO: 2h10 - using... POSTGRESQL and Docker
 }
