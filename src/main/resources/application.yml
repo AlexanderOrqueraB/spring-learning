@@ -1,22 +1,28 @@
 spring:
   application:
     name: spring-learning
+    #Just this stuff to run in H2
 #  h2:
 #    console:
 #      enabled: true
+    #To specify the name of the database in H2
 #  datasource:
 #    generate-unique-name: false
 #    name: mydatasource
+    #Just this stuff to run in H2
 
   #To connect directly to postgresql DB up and running in local machine
 #  datasource:
-#    name: postgres
-#    url: jdbc:postgresql://localhost:5432/postgres
-#    username:
+#    name: mydatabase
+#    url: jdbc:postgresql://localhost:5432/mydatabase
+#    username: user
 #    password:
-#  sql:
-#    init:
-#      mode: always
+#    driver-class-name: org.postgresql.Driver
+
+  #script-based initialization (to use schema.sql)
+  sql:
+    init:
+      mode: always
 
 #server:
   #port: 8080
