@@ -47,6 +47,9 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.0'
 
+	//Using also SB DATA JDBC
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:3.2.0'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

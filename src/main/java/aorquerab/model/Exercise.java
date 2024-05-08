@@ -4,6 +4,7 @@ import aorquerab.model.enums.TypeCardio;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @ToString
 public class Exercise {
-
+    @Id //If using ExerciseRepository extends ListCrudRepository
     private Integer id;
     @NotEmpty (message = "Name must not be null and size must be greater than zero!")
     private String name;
