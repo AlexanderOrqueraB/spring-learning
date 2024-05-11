@@ -55,8 +55,8 @@ public class ExerciseRepositoryOld {
     //"Initialization" inside this class
     @PostConstruct
     private void init () {
-        exercises.add(new Exercise(1,"Pullups",5,5, LocalDateTime.now(), TypeCardio.BIKE));
-        exercises.add(new Exercise(2,"Dips",5,5, LocalDateTime.now(), TypeCardio.STEP));
+        exercises.add(new Exercise(1,"Pullups",5,5, LocalDateTime.now(), TypeCardio.BIKE,1));
+        exercises.add(new Exercise(2,"Dips",5,5, LocalDateTime.now(), TypeCardio.STEP,1));
     }
 
     //SECOND VERSION USING JDBC CLIENT

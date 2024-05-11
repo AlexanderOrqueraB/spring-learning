@@ -1,14 +1,18 @@
 package aorquerab.controller;
 
 import aorquerab.model.Exercise;
-import aorquerab.repository.ExerciseRepositoryOld;
+import aorquerab.model.enums.TypeCardio;
+import aorquerab.model.exception.ExerciseNotFoundException;
+import aorquerab.repository.ExerciseRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping ("/exercises")
@@ -83,7 +87,70 @@ public class ExerciseController {
 //        return exerciseRepositoryOld.getExercisesJDBC();
 //    }
 
+    //THIRD VERSION USING ListCrudRepository
+    private final ExerciseRepository exerciseRepository;
 
+    public ExerciseController (ExerciseRepository exerciseRepository){
+        this.exerciseRepository = exerciseRepository;
+    }
 
-    //TODO: 2h15 - using POSTGRESQL and Docker and SB DATA
+    @GetMapping("")
+    public List<Exercise> getExercises(){
+        return exerciseRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Exercise getExerciseById(@PathVariable Integer id){
+        Optional<Exercise> exercise = exerciseRepository.findById(id);
+        if(exercise.isEmpty()) {
+            log.info("Exercise {} not found in database", id);
+            throw new ExerciseNotFoundException(HttpStatus.NOT_FOUND,"Exercise not found in DB");
+        }
+        return exercise.get();
+    }
+
+    //POST
+    @PostMapping("/addExercise")
+    public ResponseEntity<Exercise> addExercise (@Valid @RequestBody Exercise exercise) {
+        log.info("Exercise adding attempt");
+        exerciseRepository.save(exercise);
+        return new ResponseEntity<> (HttpStatus.CREATED);
+        // ResponseEntity.status(HttpStatus.CREATED)
+    }
+
+    //PUT
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/updateExercise/{id}")
+    public void updateExercise (
+            @PathVariable Integer id,
+            @Valid @RequestBody Exercise exercise) {
+        log.info("Exercise update attempt");
+        Exercise exerciseToUpdate = getExerciseById(id);
+        exerciseToUpdate.setName(exercise.getName());
+        exerciseToUpdate.setRepetition(exercise.getRepetition());
+        exerciseToUpdate.setStartedOn(exercise.getStartedOn());
+        exerciseToUpdate.setTypeCardio(exercise.getTypeCardio());
+        exerciseRepository.save(exerciseToUpdate);
+    }
+
+    //DELETE
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/deleteExercise/{id}")
+    public void deleteExercise (@PathVariable Integer id) {
+        log.info("Exercise delete attempt");
+        Optional <Exercise> exercise = exerciseRepository.findById(id);
+        if(exercise.isEmpty()) {
+            log.info("Exercise {} not found in database", id);
+            throw new ExerciseNotFoundException(HttpStatus.NOT_FOUND,"Exercise not found in DB");
+        }
+        else exerciseRepository.delete(exercise.get());
+    }
+
+    //CUSTOM QUERY
+    @GetMapping("typeCardio/{typeCardio}")
+    public List<Exercise> findByTypeCardio(@PathVariable TypeCardio typeCardio) {
+        return exerciseRepository.findAllByTypeCardio(typeCardio);
+    }
+
+    //TODO: 2h24 - Rest Clients
 }

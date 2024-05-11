@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 
 import java.time.LocalDateTime;
 
@@ -24,4 +25,7 @@ public class Exercise {
     private Integer serie;
     private LocalDateTime startedOn;
     private TypeCardio typeCardio;
+    //If using ExerciseRepository extends ListCrudRepository (if using JDBC)
+    @Version
+    private Integer version;
 }
