@@ -152,5 +152,5 @@ public class ExerciseController {
         return exerciseRepository.findAllByTypeCardio(typeCardio);
     }
 
-    //TODO: 2h24 - Rest Clients AND HTTPInterfaces, using JsonPlaceHolder API
+    //TODO: 2h24 - Rest Clients , using JsonPlaceHolder API
 }
